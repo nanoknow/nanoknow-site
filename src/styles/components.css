@@ -100,7 +100,7 @@
   background-color: var(--sl-color-white);
 }
 
-/* Facility logo grid: 1 col mobile, 2 col tablet, 4 col desktop */
+/* Facility logo grid: 1 col mobile, 2 col tablet, 3 col desktop (last row centered) */
 .logo-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -108,13 +108,29 @@
   max-width: 1100px;
   margin: 0 auto;
 }
-@media (min-width: 600px) {
+@media (min-width: 600px) and (max-width: 999px) {
   .logo-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  /* Center an orphan on the last row (e.g. 5th of 5) */
+  .logo-grid > *:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc((100% - 1.5rem) / 2);
+    justify-self: center;
   }
 }
 @media (min-width: 1000px) {
   .logo-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .logo-grid > * {
+    grid-column: span 2;
+  }
+  /* Center a leftover pair (e.g. 4+5 of 5) under a row of three */
+  .logo-grid > *:nth-child(3n + 1):nth-last-child(2) {
+    grid-column: 2 / span 2;
+  }
+  .logo-grid > *:nth-child(3n + 2):last-child {
+    grid-column: 4 / span 2;
   }
 }
