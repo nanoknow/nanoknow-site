@@ -100,7 +100,11 @@
   background-color: var(--sl-color-white);
 }
 
-/* Facility logo grid: 1 col mobile, 2 col tablet, 3 col desktop (last row centered) */
+/* Facility logo grid:
+   phone  <600:  1 col
+   tablet 600–899: 2 col (orphan centered)
+   laptop 900–1199: 3 col (leftover pair centered)
+   desktop ≥1200: 3 col, slightly wider */
 .logo-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -108,7 +112,7 @@
   max-width: 1100px;
   margin: 0 auto;
 }
-@media (min-width: 600px) and (max-width: 999px) {
+@media (min-width: 600px) and (max-width: 899px) {
   .logo-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -119,7 +123,7 @@
     justify-self: center;
   }
 }
-@media (min-width: 1000px) {
+@media (min-width: 900px) {
   .logo-grid {
     grid-template-columns: repeat(6, 1fr);
   }
@@ -132,5 +136,10 @@
   }
   .logo-grid > *:nth-child(3n + 2):last-child {
     grid-column: 4 / span 2;
+  }
+}
+@media (min-width: 1200px) {
+  .logo-grid {
+    max-width: 1200px;
   }
 }
