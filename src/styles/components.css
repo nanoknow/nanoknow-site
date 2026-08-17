@@ -103,8 +103,7 @@
 /* Facility logo grid:
    phone  <600:  1 col
    tablet 600–899: 2 col (orphan centered)
-   laptop 900–1199: 3 col (leftover pair centered)
-   desktop ≥1200: 3 col, slightly wider */
+   laptop/desktop ≥900: 3 col (leftover 1 or 2 centered) */
 .logo-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -136,6 +135,10 @@
   }
   .logo-grid > *:nth-child(3n + 2):last-child {
     grid-column: 4 / span 2;
+  }
+  /* Center a single leftover (e.g. 7th of 7) */
+  .logo-grid > *:last-child:nth-child(3n + 1) {
+    grid-column: 3 / span 2;
   }
 }
 @media (min-width: 1200px) {
