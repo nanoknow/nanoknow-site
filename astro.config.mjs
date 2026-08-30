@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import sitemap from "@astrojs/sitemap";
 import { viewTransitions } from "astro-vtbot/starlight-view-transitions";
 
 import tailwindcss from "@tailwindcss/vite";
@@ -16,6 +17,7 @@ const { title, logo, logo_darkmode } = site;
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://nanoknow.org",
   redirects: {
     "/nanofabs_map.html": "/nanofab_map.html",
     "/join/": "/get-involved/",
@@ -48,6 +50,9 @@ export default defineConfig({
         Footer: "./src/components/override-components/Footer.astro",
       },
       
+    }),
+    sitemap({
+      filter: (page) => !page.includes("/404"),
     }),
   ],
   vite: {

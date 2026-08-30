@@ -7,10 +7,24 @@ const { title = data.title, tagline } = data.hero || {};
 
 // Only the homepage gets the branded, card-forward hero layout.
 const isHome = route?.id === "" || route?.entry?.slug === "";
+const is404 =
+  route?.id === "404" ||
+  route?.entry?.slug === "404" ||
+  route?.entry?.id === "404";
 ---
 
 {
-  isHome ? (
+  is404 ? (
+    <div class="hero hero--404 flex flex-col items-center mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="hero-404__code" aria-hidden="true">404</p>
+      {title && <h1 class="hero-404__title" set:html={title} />}
+      {tagline && <p class="hero-404__tagline" set:html={tagline} />}
+      <div class="hero-404__actions">
+        <a href="/" class="btn btn-primary">Back to home</a>
+        <a href="/get-involved/" class="btn btn-outline-primary">Get involved</a>
+      </div>
+    </div>
+  ) : isHome ? (
     <div class="hero hero--home flex flex-col items-center mx-auto px-4 sm:px-6 lg:px-8">
       <div class="hero-brand">
         {title && <h1 class="hero-brand__title" set:html={title} />}
@@ -34,8 +48,52 @@ const isHome = route?.id === "" || route?.entry?.slug === "";
 
 <style>
   @layer starlight.core {
+    /* Dedicated 404 splash — no docs chrome, no oversized splash title. */
+    .hero--404 {
+      padding-top: clamp(5rem, 12vw, 8rem);
+      padding-bottom: clamp(4rem, 10vw, 7rem);
+      text-align: center;
+    }
+
+    .hero-404__code {
+      margin: 0;
+      font-size: clamp(0.85rem, 1.4vw, 1rem);
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+
+    .hero-404__title {
+      margin: 0.75rem 0 0 !important;
+      font-size: clamp(2.25rem, 6vw, 4rem) !important;
+      line-height: 1.1 !important;
+      letter-spacing: -2px;
+      color: var(--sl-color-white);
+    }
+
+    .hero-404__tagline {
+      margin: 1.25rem 0 0;
+      max-width: 32rem;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.5;
+      color: var(--color-text);
+    }
+
+    :root[data-theme="light"] .hero-404__tagline {
+      color: var(--color-lightmode-text) !important;
+    }
+
+    .hero-404__actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-top: 2.25rem;
+    }
+
     /* Non-home hero title (kept for parity with other splash pages). */
-    .hero:not(.hero--home) h1 {
+    .hero:not(.hero--home):not(.hero--404) h1 {
       font-size: 7rem !important;
       line-height: 6.5rem !important;
       letter-spacing: -4px;
@@ -56,7 +114,7 @@ const isHome = route?.id === "" || route?.entry?.slug === "";
       color: var(--color-lightmode-light) !important;
     }
     @media (max-width: 940px) {
-      .hero:not(.hero--home) h1 {
+      .hero:not(.hero--home):not(.hero--404) h1 {
         font-size: 3.5rem !important;
         line-height: 3.5rem !important;
         letter-spacing: -2px;
