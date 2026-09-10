@@ -120,14 +120,13 @@
         
     
             var tile_layer_d681e69a522d99dfa9c36afee89cf504 = L.tileLayer(
-                "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+                "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
                 {
   "minZoom": 0,
-  "maxZoom": 20,
-  "maxNativeZoom": 20,
+  "maxZoom": 16,
+  "maxNativeZoom": 16,
   "noWrap": false,
-  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
-  "subdomains": "abcd",
+  "attribution": "Tiles \u0026copy; \u003ca href=\"https://www.esri.com/\"\u003eEsri\u003c/a\u003e \u2014 Esri, DeLorme, NAVTEQ",
   "detectRetina": false,
   "tms": false,
   "opacity": 1,
@@ -137,6 +136,18 @@
         
     
             tile_layer_d681e69a522d99dfa9c36afee89cf504.addTo(map_cb93c08d46ee74fe89300154e37cdfa7);
+
+            L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 16,
+  "maxNativeZoom": 16,
+  "pane": "overlayPane",
+  "attribution": "",
+}
+
+            ).addTo(map_cb93c08d46ee74fe89300154e37cdfa7);
         
     
             var feature_group_b0ace4d059ee5671a2e3204f1bf63908 = L.featureGroup(
@@ -8417,7 +8428,7 @@
     
             var layer_control_f878660033384b706fd80788dd85bfcb_layers = {
                 base_layers : {
-                    "cartodbvoyager" : tile_layer_d681e69a522d99dfa9c36afee89cf504,
+                    "esriLightGray" : tile_layer_d681e69a522d99dfa9c36afee89cf504,
                 },
                 overlays :  {
                     "\u003cspan style=\"display:inline-block;width:10px;height:10px;border-radius:50%;background:#0067a3;margin-right:6px;vertical-align:middle;\"\u003e\u003c/span\u003eAcademic" : feature_group_b0ace4d059ee5671a2e3204f1bf63908,
